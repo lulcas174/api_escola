@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Aluno } from './Aluno';
 import { Professor } from './Professor';
 
@@ -8,9 +8,6 @@ export class Turma {
     @PrimaryGeneratedColumn()
     id!: number;
     
-    @Column()
-    turma!: string;
-
     @OneToOne(() => Professor) @JoinColumn()
     professor!: Professor;
 
