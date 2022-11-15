@@ -1,7 +1,10 @@
 import { Router } from 'express';
+import { EscolaController } from '../../controller/escola/EscolaController';
 
-// aqui vai ter as rotas da aplicação
+const EscolaRoutes = Router();
+
+EscolaRoutes.get('/pegarTodas', EscolaController.getAll);
+EscolaRoutes.post('/criar', EscolaController.create);
 
 
-
-export const EscolaRoutes = Router();
+export default EscolaRoutes;

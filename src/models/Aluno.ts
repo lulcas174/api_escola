@@ -6,20 +6,21 @@ import { Turma } from './Turma';
 @Entity('aluno')
 export class Aluno {
 
-    @PrimaryGeneratedColumn()
-    id!: number;
-
-    @Column({ unique: true })
-    nome!: string;
-
-    @Column({ unique: true })
-    cpf!: string;
+    @PrimaryGeneratedColumn("increment")
+    id: number;
 
     @Column()
-    numeroMatricula!: number;
+    nome: string;
 
-    @OneToOne(() => Modulo) @JoinColumn()
-    modulo!: Modulo;
+    @Column()
+    cpf: string;
+
+    @Column()
+    numeroMatricula: string;
+
+    @OneToOne(() => Modulo)
+    @JoinColumn()
+    module: Modulo;
 
     @ManyToOne(() => Turma, (turma) => turma.alunos)
     turma: Turma;

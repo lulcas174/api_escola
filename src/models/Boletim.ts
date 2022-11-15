@@ -3,17 +3,17 @@ import { Aluno } from './Aluno';
 
 @Entity('boletim')
 export class Boletim {
-    @PrimaryGeneratedColumn()
-    id!: number;
+    @PrimaryGeneratedColumn("increment")
+    id: number;
 
     @Column()
-    notaFinal!: number;
+    notaFinal: string;
 
     @Column()
-    aprovacao!: boolean;
+    aprovacao: boolean;
 
     @OneToOne(() => Aluno) @JoinColumn()
-    aluno!: Aluno;
+    aluno: Aluno;
 
 
     constructor(){

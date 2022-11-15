@@ -1,10 +1,9 @@
 export interface EscolaInterface {
-    id: number;
     nome: string;
     cnpj: string;
     logo: string;
     rua: string;
-    numero: number;
+    numero: string;
     bairro: string;
     cidade: string;
     cep: string;

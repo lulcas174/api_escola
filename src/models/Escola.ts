@@ -3,36 +3,30 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('escola')
 export class Escola {
 
-    @PrimaryGeneratedColumn()
-    id!: number;
+    @PrimaryGeneratedColumn("increment")
+    id: number;
 
-    @Column({ unique: true })
-    nome!: string;
+    @Column()
+    nome: string;
 
-    @Column({ unique: true })
-    cnpj!: string;
+    @Column()
+    cnpj: string;
     
     @Column()
-    logo!: string;
+    logo: string;
 
     @Column()
-    rua!: string;
+    rua: string;
 
     @Column()
-    numero!: number;
+    numero: string;
 
     @Column()
-    bairro!: string;
+    bairro: string;
 
     @Column()
-    cidade!: string;
+    cidade: string;
 
     @Column()
-    cep!: string;
-
-    constructor(){
-        if(!this.id){
-            this.id = Math.random();
-        }
-    }
+    cep: string;
 }

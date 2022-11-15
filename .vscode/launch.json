@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        
+        {
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/index.ts",
+            "type": "node",
+            "request": "attach",
+            "restart": true
+        }
+    ]
+}

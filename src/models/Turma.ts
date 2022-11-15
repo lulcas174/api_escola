@@ -5,17 +5,17 @@ import { Professor } from './Professor';
 @Entity('turma')
 export class Turma {
 
-    @PrimaryGeneratedColumn()
-    id!: number;
+    @PrimaryGeneratedColumn("increment")
+    id: number;
     
     @OneToOne(() => Professor) @JoinColumn()
-    professor!: Professor;
+    professor: Professor;
 
     @OneToMany(() => Aluno, (aluno) => aluno.turma)
     alunos: Aluno[];
 
     @Column()
-    disciplina!: string;
+    disciplina: string;
 
     
     constructor(){

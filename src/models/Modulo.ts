@@ -3,14 +3,14 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('modulo')
 export class Modulo {
 
-    @PrimaryGeneratedColumn()
-    id!: number;
-
-    @Column({ unique: true })
-    nome!: string;
+    @PrimaryGeneratedColumn("increment")
+    id: number;
 
     @Column()
-    numeroModulo!: number;
+    nome: string;
+
+    @Column()
+    numeroModulo: string;
 
     constructor(){
         if(!this.id){
