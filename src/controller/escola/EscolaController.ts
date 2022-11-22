@@ -1,92 +1,36 @@
-import { Request, Response } from 'express';
+import { Request, Response, Router } from 'express';
 import { getRepository } from "typeorm";
 import { EscolaInterface } from '../../interfaces/EscolaInterface';
 import { Escola } from '../../models/Escola';
+import { EscolaService } from '../../service/escolaService';
 
 
 export class EscolaController {
-    public static async getAll(req: Request, res: Response) {
-        const escolaRepository = getRepository(Escola);
 
-        const escolas = await escolaRepository.find({
-            select: ['id', 'nome', 'cnpj', 'logo', 'rua', 'numero', 'bairro', 'cidade', 'cep']
-        });
-
+   public static index = async(req: Request, res: Response) => {
+        const escolaService = new EscolaService();
+        const escolas = await escolaService.index();
         res.status(200).json(escolas);
-    }
+   }
 
-    public static async getById(req: Request, res: Response) {
+   public static create = async(req: Request, res: Response) => {
+        const escolaService = new EscolaService();
+        const escola = req.body as Escola;
+        const newEscola = await escolaService.create(escola);
+        res.status(201).json(newEscola);
+   }
+
+   public static update = async(req: Request, res: Response) => {
+        const escolaService = new EscolaService();
+        const escola = req.body as Escola;
         const id = req.params.id;
+        const updateEscola = await escolaService.update(escola, Number(id));
+        res.status(200).json(updateEscola).send('Escola editada com sucesso.');
+   }
 
-        const escolaRepository = getRepository(Escola);
-
-        try {
-            const escola = await escolaRepository.findOneOrFail(id, {
-                select: ['nome', 'cnpj', 'logo', 'rua', 'numero', 'bairro', 'cidade', 'cep']
-            });
-            res.send(escola);
-        } catch (error) {
-            res.status(404).send("escola não encontrada");
-        }
-    }
-
-    public static async create(req: Request, res: Response) {
-        try {
-            const { nome, cnpj, logo, rua, numero, bairro, cidade, cep } = req.body;
-            const requestData = { nome, cnpj, logo, rua, numero, bairro, cidade, cep } as EscolaInterface;
-
-            const escolaRepository = getRepository(Escola);
-            const data = escolaRepository.create(requestData);
-            escolaRepository.save(data);
-
-            res.status(201).json({ message: 'Escola criada!' });
-        }
-        catch (e) {
-            console.log(e);
-            return res.status(500).json({ message: 'Erro ao criar escola!' });
-        }
-
-    }
-
-    public static async edit(req: Request, res: Response) {
-        const id = req.params.id;
-
-        const { nome, cnpj, logo, rua, numero, bairro, cidade, cep } = req.body;
-
-        const escolaRepository = getRepository(Escola);
-        try {
-            await escolaRepository.findOneOrFail(id);
-        } catch (error) {
-            res.status(404).send("escola não encontrada");
-            return;
-        }
-
-        const requestData = { nome, cnpj, logo, rua, numero, bairro, cidade, cep } as EscolaInterface;
-
-
-        try {
-            await escolaRepository.save(requestData);
-        } catch (e) {
-            res.status(409).send(e);
-            return;
-        }
-        res.status(204).send();
-    };
-
-    public static async delete(req: Request, res: Response) {
-        const id = req.body.id;
-
-        const escolaRepository = getRepository(Escola);
-        let escola: Escola;
-        try {
-            escola = await escolaRepository.findOneOrFail(id);
-        } catch (error) {
-            res.status(404).send("Escola não encontrada");
-            return;
-        }
-        escolaRepository.delete(id);
-
-        res.status(204).send();
-    }
-
+   public static delete = async (req: Request, res: Response) => {
+        const escolaService = new EscolaService();
+        const id =  req['params']['id'];
+        res.status(204).send(escolaService.delete(Number(id)));
+   }
 }

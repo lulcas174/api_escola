@@ -3,11 +3,10 @@ import { EscolaController } from '../../controller/escola/EscolaController';
 
 const EscolaRoutes = Router();
 
-EscolaRoutes.get('/pegarTodas', EscolaController.getAll);
+EscolaRoutes.get('/pegarTodas', EscolaController.index);
 EscolaRoutes.post('/criar', EscolaController.create);
-EscolaRoutes.get('/pegarPorID/:id([0-9]+)', EscolaController.getById);
-EscolaRoutes.post('/editar/:id([0-9]+)', EscolaController.edit);
-EscolaRoutes.delete('/deletar', EscolaController.delete);
+EscolaRoutes.put('/editar/:id', EscolaController.update);
+EscolaRoutes.delete('/deletar/:id', EscolaController.delete);
 
 
 export default EscolaRoutes;
