@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
+import { getRepository } from "typeorm";
 import { EscolaInterface } from '../../interfaces/EscolaInterface';
 import { Escola } from '../../models/Escola';
-import { getRepository } from "typeorm";
 
 
 export class EscolaController {
@@ -16,13 +16,13 @@ export class EscolaController {
     }
 
     public static async getById(req: Request, res: Response) {
-        const id: number = req.body.id;
+        const id = req.params.id;
 
         const escolaRepository = getRepository(Escola);
 
         try {
             const escola = await escolaRepository.findOneOrFail(id, {
-                select: ['id', 'nome', 'cnpj', 'logo', 'rua', 'numero', 'bairro', 'cidade', 'cep']
+                select: ['nome', 'cnpj', 'logo', 'rua', 'numero', 'bairro', 'cidade', 'cep']
             });
             res.send(escola);
         } catch (error) {
@@ -49,7 +49,7 @@ export class EscolaController {
     }
 
     public static async edit(req: Request, res: Response) {
-        const id = req.body.id;
+        const id = req.params.id;
 
         const { nome, cnpj, logo, rua, numero, bairro, cidade, cep } = req.body;
 
