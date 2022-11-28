@@ -1,7 +1,8 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn, ManyToOne } from 'typeorm';
-
-import { Modulo } from './Modulo';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Modulos } from '../utils/enums/modulos';
+import { Boletim } from './Boletim';
 import { Turma } from './Turma';
+
 
 @Entity('aluno')
 export class Aluno {
@@ -18,17 +19,14 @@ export class Aluno {
     @Column()
     numeroMatricula: string;
 
-    @OneToOne(() => Modulo)
+    @ManyToOne('Turma', (turma:Turma) => turma.alunos, {onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true })
     @JoinColumn()
-    module: Modulo;
+    turma: Turma | null;
 
-    @ManyToOne(() => Turma, (turma) => turma.alunos)
-    turma: Turma;
+    @Column({type: 'enum', enum: Modulos, nullable: true, default: Modulos.MODULO_1})
+    disciplina: Modulos;
 
-
-    constructor(){
-        if(!this.id){
-            this.id = Math.random();
-        }
-    }
+    @OneToOne(() => Boletim, (boletim) => boletim.aluno, {onDelete: 'CASCADE', onUpdate: 'CASCADE', eager: true})
+    @JoinColumn()
+    boletim: Boletim | null;
 }

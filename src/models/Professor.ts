@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Disciplina } from '../utils/enums/disciplinas';
+import { Turma } from './Turma';
 
 @Entity('professor')
 export class Professor {
@@ -15,12 +17,14 @@ export class Professor {
     @Column()
     tituloAcademico: string;
 
-    @Column()
-    disciplinaFixa: string;
+    @Column({type: 'enum', enum: Disciplina, nullable: true, default: null})
+    disciplina: Disciplina;
 
+    @OneToOne(() => Turma, (turma) => turma.professor, {nullable:true, eager: true})
+    @JoinColumn()
+    turma: Turma | null;
+    
     constructor(){
-        if(!this.id){
-            this.id = Math.random();
-        }
+       
     }
 }

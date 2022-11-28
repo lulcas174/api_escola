@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn, JoinColumn, OneToMany } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Aluno } from './Aluno';
 
 @Entity('boletim')
@@ -10,15 +10,13 @@ export class Boletim {
     notaFinal: string;
 
     @Column()
-    aprovacao: boolean;
+    aprovado: boolean;
 
-    @OneToOne(() => Aluno) @JoinColumn()
-    aluno: Aluno;
+    @OneToOne(() => Aluno, (aluno) => aluno.boletim, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    aluno: Aluno | null;
 
 
     constructor(){
-        if(!this.id){
-            this.id = Math.random();
-        }
+       
     }
 }

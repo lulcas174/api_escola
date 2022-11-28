@@ -1,8 +1,6 @@
-import { Request, Response, Router } from 'express';
-import { getRepository } from "typeorm";
-import { EscolaInterface } from '../../interfaces/EscolaInterface';
-import { Escola } from '../../models/Escola';
-import { EscolaService } from '../../service/escolaService';
+import { Request, Response } from 'express';
+import { Escola } from '../models/Escola';
+import { EscolaService } from '../service/escolaService';
 
 
 export class EscolaController {

@@ -1,0 +1,42 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "API gerenciamento de escola",
+        "version": "0.0.1"
+    },
+    "basePath": "/",
+    "paths": {
+        "/escola/criar": {
+            "post": {
+                "summary": "Cria uma escola",
+                "description": "Cria uma escola",
+                "operationId": "criarEscola",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Escola"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Escola criada com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Escola"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao criar escola"
+                    }
+                }
+            }
+            }
+        }
+}
+

@@ -12,7 +12,6 @@ createConnection()
             app.use(express.json());
             app.use("/", router)
     
-    
             app.listen(port, () => {
                 console.log(`Servidor esta rodando em: http://localhost:${port}`)
             });

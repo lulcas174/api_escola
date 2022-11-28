@@ -1,4 +1,5 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Disciplina } from '../utils/enums/disciplinas';
 import { Aluno } from './Aluno';
 import { Professor } from './Professor';
 
@@ -8,19 +9,16 @@ export class Turma {
     @PrimaryGeneratedColumn("increment")
     id: number;
     
-    @OneToOne(() => Professor) @JoinColumn()
-    professor: Professor;
+    @OneToOne(() => Professor, (professor) => professor.turma, {nullable: true})
+    professor: Professor | null;
 
-    @OneToMany(() => Aluno, (aluno) => aluno.turma)
+    @OneToMany(() => Aluno, (aluno) => aluno.turma, {onDelete: 'CASCADE', onUpdate: 'CASCADE', nullable:true})
     alunos: Aluno[];
 
-    @Column()
-    disciplina: string;
+    @Column({type: 'enum', enum: Disciplina, nullable: true, default: null})
+    disciplina: Disciplina;
 
-    
     constructor(){
-        if(!this.id){
-            this.id = Math.random();
-        }
+     
     }
 }
